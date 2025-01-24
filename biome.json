@@ -1,17 +1,9 @@
 {
 	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-	"vcs": {
-		"enabled": false,
-		"clientKind": "git",
-		"useIgnoreFile": false
-	},
-	"files": {
-		"ignoreUnknown": false,
-		"ignore": []
-	},
 	"formatter": {
 		"enabled": true,
-		"indentStyle": "tab"
+		"indentStyle": "tab",
+		"attributePosition": "multiline"
 	},
 	"organizeImports": {
 		"enabled": true
@@ -19,12 +11,54 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"complexity": {
+				"noForEach": "error",
+				"noBannedTypes": "error",
+				"noStaticOnlyClass": "error",
+				"noUselessFragments": "error",
+				"noVoid": "error"
+			},
+			"correctness": {
+				"noUnreachable": "error",
+				"noUnusedVariables": "error",
+				"noConstAssign": "error",
+				"noUndeclaredVariables": "error",
+				"noUnusedPrivateClassMembers": "error",
+				"useHookAtTopLevel": "error",
+				"noUnusedImports": "error"
+			},
+			"performance": {
+				"noDelete": "error",
+				"noAccumulatingSpread": "error",
+				"noBarrelFile": "error"
+			},
+			"style": {
+				"noNonNullAssertion": "error",
+				"useBlockStatements": "error",
+				"useShorthandArrayType": "error",
+				"useTemplate": "error",
+				"noParameterAssign": "error",
+				"noVar": "error",
+				"useConst": "error",
+				"useEnumInitializers": "error",
+				"useImportType": "off"
+			},
+			"suspicious": {
+				"noConsoleLog": "error",
+				"noDebugger": "error",
+				"noEmptyInterface": "error",
+				"noExplicitAny": "error",
+				"noRedundantUseStrict": "error",
+				"noShadowRestrictedNames": "error"
+			}
 		}
 	},
 	"javascript": {
 		"formatter": {
-			"quoteStyle": "double"
+			"enabled": true,
+			"indentStyle": "space",
+			"attributePosition": "multiline"
 		}
 	}
 }
