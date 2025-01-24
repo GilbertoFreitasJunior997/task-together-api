@@ -1,0 +1,19 @@
+{
+	"name": "task-together-api",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"dev": ""
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@types/express": "^5.0.0",
+		"typescript": "^5.7.3"
+	},
+	"dependencies": {
+		"express": "^4.21.2"
+	}
+}
