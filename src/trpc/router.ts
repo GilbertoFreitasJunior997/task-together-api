@@ -5,5 +5,5 @@ const t = initTRPC.context<Context>().create();
 export const publicProcedure = t.procedure;
 
 export const appRouter = t.router({
-  get: publicProcedure.query(() => ({ message: "Hello" })),
+  getAll: publicProcedure.query(() => ({ message: "Hello" })),
 });
