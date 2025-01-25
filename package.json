@@ -5,8 +5,7 @@
 	"description": "",
 	"scripts": {
 		"dev": "tsx --env-file=.env --watch src/app.ts",
-		"start": "node dist/app.js && tsc-alias",
-		"build": "tsc && tsc-alias"
+		"start": "tsx"
 	},
 	"keywords": [],
 	"author": "",
