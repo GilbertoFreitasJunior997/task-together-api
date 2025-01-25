@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@trpc/server':
-        specifier: ^10.45.2
-        version: 10.45.2
+        specifier: 11.0.0-rc.724
+        version: 11.0.0-rc.724(typescript@5.7.3)
       dotenv:
         specifier: ^16.4.7
         version: 16.4.7
@@ -541,8 +541,10 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@trpc/server@10.45.2':
-    resolution: {integrity: sha512-wOrSThNNE4HUnuhJG6PfDRp4L2009KDVxsd+2VYH8ro6o/7/jwYZ8Uu5j+VaW+mOmc8EHerHzGcdbGNQSAUPgg==}
+  '@trpc/server@11.0.0-rc.724':
+    resolution: {integrity: sha512-kdDDwLYWGlnoXxgNeOzgb620lsnueEXMn8PLPDZW5Lpm5T3kJPT4F0JYTZINk/DM0e7q4iWx488FvwBNpNhACA==}
+    peerDependencies:
+      typescript: '>=5.7.2'
 
   '@types/body-parser@1.19.5':
     resolution: {integrity: sha512-fB3Zu92ucau0iQ0JMCFQE7b/dv8Ot07NI3KaZIkIUNXq82k4eBAqUaneXfleGY9JWskeS9y+u0nXMyspcuQrCg==}
@@ -1495,7 +1497,9 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.18.0
 
-  '@trpc/server@10.45.2': {}
+  '@trpc/server@11.0.0-rc.724(typescript@5.7.3)':
+    dependencies:
+      typescript: 5.7.3
 
   '@types/body-parser@1.19.5':
     dependencies:
