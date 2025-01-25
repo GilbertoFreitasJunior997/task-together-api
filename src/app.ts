@@ -16,3 +16,4 @@ app.use(
 );
 
 app.listen(env.PORT);
+console.log(`Listening on port: ${env.PORT}`);
