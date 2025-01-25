@@ -3,6 +3,7 @@ import express from "express";
 import { env } from "./lib/env";
 import { createContext } from "./trpc/context";
 import { appRouter } from "./trpc/router";
+import "dotenv/config";
 
 const app = express();
 
@@ -14,4 +15,6 @@ app.use(
   }),
 );
 
-app.listen(env.PORT);
+app.listen(env.PORT, () => {
+  console.info(`Listening on port ${env.PORT}`);
+});
