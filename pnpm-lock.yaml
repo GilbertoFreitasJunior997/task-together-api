@@ -11,6 +11,9 @@ importers:
       '@trpc/server':
         specifier: ^10.45.2
         version: 10.45.2
+      dotenv:
+        specifier: ^16.4.7
+        version: 16.4.7
       drizzle-orm:
         specifier: ^0.38.4
         version: 0.38.4(@types/pg@8.11.11)(pg@8.13.1)
@@ -670,6 +673,10 @@ packages:
   dir-glob@3.0.1:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
     engines: {node: '>=8'}
+
+  dotenv@16.4.7:
+    resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
+    engines: {node: '>=12'}
 
   drizzle-kit@0.30.2:
     resolution: {integrity: sha512-vhdLrxWA32WNVF77NabpSnX7pQBornx64VDQDmKddRonOB2Xe/yY4glQ7rECoa+ogqcQNo7VblLUbeBK6Zn9Ow==}
@@ -1632,6 +1639,8 @@ snapshots:
   dir-glob@3.0.1:
     dependencies:
       path-type: 4.0.0
+
+  dotenv@16.4.7: {}
 
   drizzle-kit@0.30.2:
     dependencies:
