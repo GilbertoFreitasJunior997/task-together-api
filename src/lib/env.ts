@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const envSchema = z.object({
   PORT: z.string(),
-  DATABASE_URL: z.string()
+  DATABASE_CONNECTION_STRING: z.string(),
 });
 export type Env = z.infer<typeof envSchema>;
 

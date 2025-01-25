@@ -5,7 +5,6 @@ import { labelsTable } from "./labels.table";
 import { projectMembersTable } from "./project-members.table";
 import { tasksTable } from "./tasks.table";
 import { usersTable } from "./users.table";
-import { workspacesTable } from "./workspaces.table";
 
 export const projectsTable = pgTable("projects", {
   id: id(),
@@ -19,19 +18,12 @@ export const projectsTable = pgTable("projects", {
   creatorId: uuid("creator_id").references(() => usersTable.id, {
     onDelete: "set null",
   }),
-  workspaceId: uuid("workspace_id")
-    .references(() => workspacesTable.id, { onDelete: "cascade" })
-    .notNull(),
 });
 
 export const projectsRelations = relations(projectsTable, ({ one, many }) => ({
   creator: one(usersTable, {
     fields: [projectsTable.creatorId],
     references: [usersTable.id],
-  }),
-  workspace: one(workspacesTable, {
-    fields: [projectsTable.workspaceId],
-    references: [workspacesTable.id],
   }),
 
   labels: many(labelsTable),

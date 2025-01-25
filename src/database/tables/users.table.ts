@@ -8,8 +8,6 @@ import { taskAssigneesTable } from "./task-assignees.table";
 import { taskAttachmentsTable } from "./task-attachments.table";
 import { taskCommentsTable } from "./task-comments.table";
 import { tasksTable } from "./tasks.table";
-import { workspaceMembersTable } from "./workspace-members.table";
-import { workspacesTable } from "./workspaces.table";
 
 export const usersTable = pgTable("users", {
   id: id(),
@@ -30,7 +28,5 @@ export const usersRelations = relations(usersTable, ({ many }) => ({
   comments: many(taskCommentsTable),
   createdProjects: many(projectsTable),
   createdTasks: many(tasksTable),
-  memberAtWorkspaces: many(workspaceMembersTable),
-  createdWorkspaces: many(workspacesTable),
   uploadedAttachments: many(taskAttachmentsTable),
 }));

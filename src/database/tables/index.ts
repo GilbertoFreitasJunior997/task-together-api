@@ -11,5 +11,3 @@ export * from "./task-labels.table";
 export * from "./task-status.table";
 export * from "./tasks.table";
 export * from "./users.table";
-export * from "./workspace-members.table";
-export * from "./workspaces.table";
