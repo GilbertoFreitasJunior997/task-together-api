@@ -1,6 +1,7 @@
 {
 	"name": "task-together-api",
 	"version": "1.0.0",
+	"type": "module",
 	"description": "",
 	"scripts": {
 		"dev": "tsx --env-file=.env --watch src/app.ts",
