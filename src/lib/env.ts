@@ -4,6 +4,7 @@ export const envSchema = z.object({
   PORT: z.string(),
   DATABASE_CONNECTION_STRING: z.string(),
   CLIENT_URL: z.string(),
+  TOKEN_SECRET: z.string(),
 });
 export type Env = z.infer<typeof envSchema>;
 

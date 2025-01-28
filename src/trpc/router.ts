@@ -1,9 +1,10 @@
-import { initTRPC } from "@trpc/server";
-import { Context } from "./context";
+import { trpc } from ".";
+import { authRouter } from "../routers/auth/auth.router";
+import { authProcedure } from "./procedures";
 
-const t = initTRPC.context<Context>().create();
-export const publicProcedure = t.procedure;
-
-export const appRouter = t.router({
-  getAll: publicProcedure.query(() => ({ message: "Hello" })),
+export const appRouter = trpc.router({
+  auth: authRouter,
+  other: authProcedure.query(() => {
+    return { data: "Hi!" };
+  }),
 });
