@@ -1,18 +1,23 @@
 import { TRPCError } from "@trpc/server";
 import { eq, getTableColumns } from "drizzle-orm";
-import { Response } from "express";
+import { Response, Request } from "express";
 import { db } from "../../database";
 import { usersTable } from "../../database/tables";
 import { setTokenCookie } from "../../lib/jwt";
 import { comparePassword, hashPassword } from "../../lib/password";
 import {
   AuthSignInInput,
-  AuthSignInWithGoogleInput,
   AuthSignUpInput,
   GoogleUser,
 } from "../../schemas/auth.schemas";
 import { OAuth2Client } from "google-auth-library";
 import { env } from "../../lib/env";
+
+const client = new OAuth2Client(
+  env.GOOGLE_AUTH_CLIENT_ID,
+  env.GOOGLE_AUTH_CLIENT_SECRET,
+  env.GOOGLE_REDIRECT_URI,
+);
 
 export const authService = {
   signUp: async (dto: AuthSignInInput, res: Response) => {
@@ -90,56 +95,54 @@ export const authService = {
     setTokenCookie(user, res);
     return user;
   },
-  signInWithGoogle: async (dto: AuthSignInWithGoogleInput, res: Response) => {
-    try {
-      const client = new OAuth2Client(
-        env.GOOGLE_AUTH_CLIENT_ID,
-        env.GOOGLE_AUTH_CLIENT_SECRET,
-        env.GOOGLE_REDIRECT_URI,
-      );
+  generateGoogleAuthUrl: (res: Response) => {
+    const url = client.generateAuthUrl({
+      access_type: "offline",
+      scope: [
+        "https://www.googleapis.com/auth/userinfo.profile",
+        "https://www.googleapis.com/auth/userinfo.email",
+      ],
+    });
+    res.redirect(url);
+  },
+  signInWithGoogle: async (req: Request, res: Response) => {
+    const { code } = req.query;
 
-      const { tokens } = await client.getToken(dto.code);
-      client.setCredentials(tokens);
+    const { tokens } = await client.getToken(code as string);
+    client.setCredentials(tokens);
 
-      const oauth2 = await client.request({
-        url: "https://www.googleapis.com/oauth2/v2/userinfo",
-      });
+    const oauth2 = await client.request({
+      url: "https://www.googleapis.com/oauth2/v2/userinfo",
+    });
 
-      const userInfo = oauth2.data as GoogleUser;
+    const userInfo = oauth2.data as GoogleUser;
 
-      const dbUser = await db.query.usersTable.findFirst({
-        where: eq(usersTable.email, userInfo.email),
-      });
+    const dbUser = await db.query.usersTable.findFirst({
+      where: eq(usersTable.email, userInfo.email),
+    });
 
-      const { passwordHash: _, ...returnColumns } = getTableColumns(usersTable);
+    const { passwordHash: _, ...returnColumns } = getTableColumns(usersTable);
 
-      if (dbUser) {
-        const [user] = await db
-          .update(usersTable)
-          .set({ avatarUrl: userInfo.picture, googleId: userInfo.id })
-          .where(eq(usersTable.id, dbUser.id))
-          .returning(returnColumns);
-
-        setTokenCookie(user, res);
-        return user;
-      }
-
+    if (dbUser) {
       const [user] = await db
-        .insert(usersTable)
-        .values({
-          email: userInfo.email,
-          username: userInfo.name,
-        })
+        .update(usersTable)
+        .set({ avatarUrl: userInfo.picture, googleId: userInfo.id })
+        .where(eq(usersTable.id, dbUser.id))
         .returning(returnColumns);
 
       setTokenCookie(user, res);
-      return user;
-    } catch (error) {
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to authenticate with Google",
-        cause: error,
-      });
+      res.redirect("/dashboard");
     }
+
+    const [user] = await db
+      .insert(usersTable)
+      .values({
+        email: userInfo.email,
+        username: userInfo.name,
+      })
+      .returning(returnColumns);
+
+    setTokenCookie(user, res);
+    res.redirect("/dashboard");
   },
 };
