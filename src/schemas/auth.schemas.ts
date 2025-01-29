@@ -6,6 +6,7 @@ export const authSignInInputSchema = z.object({
   username: z.string(),
   password: z.string(),
 });
+
 export type AuthSignInInput = z.infer<typeof authSignInInputSchema>;
 
 export const authSignUpSchema = z.object({
@@ -17,4 +18,13 @@ export type AuthSignUpInput = z.infer<typeof authSignUpSchema>;
 export const authUserSchema = userSchema.omit({
   passwordHash: true,
 });
+
 export type AuthUser = z.infer<typeof authUserSchema>;
+
+export type GoogleUser = {
+  id: string;
+  email: string;
+  verified_email: boolean;
+  name: string;
+  picture: string;
+};

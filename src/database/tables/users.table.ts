@@ -13,9 +13,11 @@ export const usersTable = pgTable("users", {
   id: id(),
 
   email: varchar("email", { length: 255 }).notNull().unique(),
-  passwordHash: text("password_hash").notNull(),
+  passwordHash: text("password_hash"),
   username: varchar("username", { length: 32 }).notNull(),
   avatarUrl: text("avatar_url"),
+
+  googleId: text("google_id"),
 
   createdAt: createdAt(),
   updatedAt: updatedAt(),
