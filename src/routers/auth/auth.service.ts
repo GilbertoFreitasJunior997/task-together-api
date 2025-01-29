@@ -95,7 +95,7 @@ export const authService = {
     setTokenCookie(user, res);
     return user;
   },
-  generateGoogleAuthUrl: (res: Response) => {
+  generateGoogleAuthUrl: () => {
     const url = client.generateAuthUrl({
       access_type: "offline",
       scope: [
@@ -103,7 +103,8 @@ export const authService = {
         "https://www.googleapis.com/auth/userinfo.email",
       ],
     });
-    res.redirect(url);
+
+    return url;
   },
   signInWithGoogle: async (req: Request, res: Response) => {
     const { code } = req.query;
