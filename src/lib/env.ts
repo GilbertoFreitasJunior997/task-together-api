@@ -5,6 +5,9 @@ export const envSchema = z.object({
   DATABASE_CONNECTION_STRING: z.string(),
   CLIENT_URL: z.string(),
   TOKEN_SECRET: z.string(),
+  GOOGLE_AUTH_CLIENT_ID: z.string(),
+  GOOGLE_AUTH_CLIENT_SECRET: z.string(),
+  GOOGLE_REDIRECT_URI: z.string(),
 });
 export type Env = z.infer<typeof envSchema>;
 
